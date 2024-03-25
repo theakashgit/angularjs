@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="itemApp">
+
+<head>
+    <title>AngularJS Item Collection</title>
+    <style>
+        #itemCollection {
+            width: 400px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-controller="itemCtrl" id="itemCollection">
+        <h2>Item Collection</h2>
+
+        <label for="newItem">New Item:</label>
+        <input type="text" id="newItem" ng-model="newItem" required>
+        <button ng-click="addItem()">Add Item</button>
+
+        <ul>
+            <li ng-repeat="item in items">
+                {{ item }}
+                <button ng-click="removeItem($index)">Remove</button>
+            </li>
+        </ul>
+
+        <p>Total Items: {{ items.length }}</p>
+    </div>
+
+    <script>
+        var app = angular.module('itemApp', []);
+
+        app.controller('itemCtrl', function($scope) {
+            $scope.items = ["Item 1", "Item 2", "Item 3"];
+            $scope.newItem = "";
+
+            $scope.addItem = function() {
+                if ($scope.newItem.trim() !== "") {
+                    $scope.items.push($scope.newItem);
+                    $scope.newItem = "";
+                }
+            };
+
+            $scope.removeItem = function(index) {
+                $scope.items.splice(index, 1);
+            };
+        });
+    </script>
+
+</body>
+
+</html>

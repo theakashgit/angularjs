@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="mathApp">
+
+<head>
+    <title>AngularJS Math Calculator</title>
+    <style>
+        #calculator {
+            width: 300px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        button:last-child {
+            margin-right: 0;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-controller="mathCtrl" id="calculator">
+        <h2>Math Calculator</h2>
+
+        <input type="number" ng-model="inputNumber" placeholder="Enter a number">
+
+        <div>
+            <button ng-click="calculateFactorial()">Factorial</button>
+            <button ng-click="calculateSquare()">Square</button>
+        </div>
+
+        <p ng-show="result !== undefined">Result: {{ result }}</p>
+    </div>
+
+    <script>
+        var app = angular.module('mathApp', []);
+
+        app.controller('mathCtrl', function($scope) {
+            $scope.inputNumber = '';
+            $scope.result = undefined;
+
+            $scope.calculateFactorial = function() {
+                if ($scope.inputNumber >= 0) {
+                    $scope.result = factorial($scope.inputNumber);
+                } else {
+                    $scope.result = 'Invalid input';
+                }
+            };
+
+            $scope.calculateSquare = function() {
+                $scope.result = $scope.inputNumber * $scope.inputNumber;
+            };
+
+            function factorial(n) {
+                if (n === 0 || n === 1) {
+                    return 1;
+                }
+                return n * factorial(n - 1);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
